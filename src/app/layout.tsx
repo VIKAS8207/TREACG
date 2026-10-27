@@ -1,0 +1,31 @@
+import type { Metadata } from "next";
+import { Poppins, Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "TREACG | The Rice Exporters Association C.G.",
+  description:
+    "India International Rice Summit 2027 - Shaping the Future of Rice Trade, Innovation, and Sustainability.",
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html
+      lang="en"
+      className={`${poppins.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>{children}</body>
+    </html>
+  );
+}

@@ -1,10 +1,14 @@
-import Image from "next/image";
+import ImageCarousel from "./ImageCarousel";
 import SectionHeading from "./SectionHeading";
+import WheatDecor from "@/components/WheatDecor";
 
-// `image`: path under /public, e.g. "/images/glimpse-inauguration.jpg". Without it a placeholder shows.
-const activities: { title: string; text: string; image?: string; card: string; muted: string; pill: string; ph: string }[] = [
+// `images`: photo paths under /public, e.g. ["/images/glimpse-inauguration-1.jpg", "/images/glimpse-inauguration-2.jpg"].
+// They cross-fade as a carousel; without them soft gradient placeholders slide instead.
+// The /images/glimpse/*.svg files are dummies: replace them with real photos (jpg/webp) and update the paths.
+const activities: { title: string; text: string; images?: string[]; card: string; muted: string; pill: string; ph: string }[] = [
   {
     title: "Grand Inauguration",
+    images: ["/images/glimpse/inauguration-1.svg", "/images/glimpse/inauguration-2.svg", "/images/glimpse/inauguration-3.svg"],
     text: "Inaugurated by the Hon'ble Chief Minister and the Hon'ble Finance Minister of Chhattisgarh, setting a powerful national tone.",
     card: "bg-brand-orange text-white",
     muted: "text-white/85",
@@ -13,6 +17,7 @@ const activities: { title: string; text: string; image?: string; card: string; m
   },
   {
     title: "Leadership Roundtable",
+    images: ["/images/glimpse/roundtable-1.svg", "/images/glimpse/roundtable-2.svg", "/images/glimpse/roundtable-3.svg"],
     text: "High-level discussions with industry leaders and MNCs across the global rice value chain.",
     card: "bg-brand-mint text-neutral-900",
     muted: "text-neutral-600",
@@ -21,6 +26,7 @@ const activities: { title: string; text: string; image?: string; card: string; m
   },
   {
     title: "Expert Panels",
+    images: ["/images/glimpse/panels-1.svg", "/images/glimpse/panels-2.svg", "/images/glimpse/panels-3.svg"],
     text: "Renowned experts shared insights on trends, technology, exports and future opportunities.",
     card: "bg-amber-100 text-neutral-900",
     muted: "text-neutral-600",
@@ -29,6 +35,7 @@ const activities: { title: string; text: string; image?: string; card: string; m
   },
   {
     title: "Music Night & Gala Dinner",
+    images: ["/images/glimpse/gala-1.svg", "/images/glimpse/gala-2.svg", "/images/glimpse/gala-3.svg"],
     text: "A vibrant music night and elegant gala dinner fostering meaningful networking.",
     card: "bg-brand-green text-white",
     muted: "text-white/80",
@@ -37,18 +44,11 @@ const activities: { title: string; text: string; image?: string; card: string; m
   },
 ];
 
-function Arrow() {
-  return (
-    <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-      <path d="M4 10h12M11 5l5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export default function GlimpseSection() {
   return (
-    <section id="glimpse" className="scroll-mt-16 bg-white">
-      <div className="mx-auto max-w-[1920px] px-6 py-20 lg:px-20">
+    <section id="glimpse" className="scroll-mt-16 bg-white relative overflow-hidden">
+      <WheatDecor items={[{ side:"left", top:"30%", size:96, rotate:-20 }, { side:"right", top:"68%", size:140, rotate:25 }]} />
+      <div className="relative mx-auto max-w-[1920px] px-6 py-20 lg:px-20">
         <SectionHeading eyebrow="Last edition" title="IIRS-2026 Glimpse & Activities" />
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {activities.map((a, i) => (
@@ -62,21 +62,13 @@ export default function GlimpseSection() {
                 <p className={`mt-3 min-h-24 text-sm leading-relaxed ${a.muted}`}>{a.text}</p>
               </div>
 
-              <div className={`relative mt-auto h-64 overflow-hidden rounded-xl bg-linear-to-br ${a.ph}`}>
-                {a.image ? (
-                  <Image src={a.image} alt={a.title} fill sizes="(min-width: 1280px) 25vw, 50vw" className="object-cover" />
-                ) : (
-                  <span className="absolute inset-0 grid place-items-center text-sm font-semibold text-white/90">
-                    IIRS-2026 Glimpse
-                  </span>
-                )}
-                <span className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-white/85 py-1.5 pl-4 pr-1.5 text-xs font-semibold text-neutral-800 backdrop-blur">
-                  Glimpse
-                  <span className="grid h-7 w-7 place-items-center rounded-full bg-neutral-900 text-white">
-                    <Arrow />
-                  </span>
-                </span>
-              </div>
+              <ImageCarousel
+                images={a.images}
+                gradient={a.ph}
+                alt={a.title}
+                startDelayMs={i * 1100}
+                className="mt-auto h-64 rounded-xl"
+              />
             </article>
           ))}
         </div>

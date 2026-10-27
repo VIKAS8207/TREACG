@@ -1,3 +1,5 @@
+import WheatDecor from "@/components/WheatDecor";
+
 const whyPartner = [
   ["Explore", "Innovation-driven solutions and technologies that transform the rice supply chain, from paddy to port."],
   ["Connect", "Meet buyers, sellers, millers and exporters in curated B2B, B2G and reverse buyer–seller meetings."],
@@ -26,8 +28,9 @@ function Arrow() {
 
 export default function WhyPartnerSection() {
   return (
-    <section id="why-partner" className="scroll-mt-16 bg-white">
-      <div className="mx-auto grid max-w-[1920px] gap-12 px-6 py-24 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:px-20">
+    <section id="why-partner" className="scroll-mt-16 bg-white relative overflow-hidden">
+      <WheatDecor items={[{ side:"right", top:"28%", size:120, rotate:15 }, { side:"left", top:"70%", size:80, rotate:-30 }]} />
+      <div className="relative mx-auto grid max-w-[1920px] gap-12 px-6 py-24 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:px-20">
         {/* intro */}
         <div className="lg:sticky lg:top-24 lg:self-start">
           <p className="text-sm font-semibold uppercase tracking-widest text-brand-orange">Why Partner</p>

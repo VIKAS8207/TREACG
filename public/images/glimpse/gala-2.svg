@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" width="800" height="640">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c4b5fd"/><stop offset="1" stop-color="#5b21b6"/></linearGradient>
+  </defs>
+  <rect width="800" height="640" fill="url(#g)"/>
+  <circle cx="620" cy="470" r="210" fill="#fff" opacity="0.18"/>
+  <circle cx="180" cy="170" r="150" fill="#fff" opacity="0.14"/>
+  <path d="M0 520 C 200 470, 420 570, 800 490 L800 640 L0 640Z" fill="#000" opacity="0.12"/>
+  <text x="400" y="320" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700" fill="#fff">Music Night &amp; Gala Dinner</text>
+  <text x="400" y="372" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#fff" opacity="0.9">Dummy photo 2 of 3</text>
+</svg>

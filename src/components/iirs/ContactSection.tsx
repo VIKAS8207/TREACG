@@ -1,4 +1,5 @@
-import EnquiryForm from "@/components/EnquiryForm";
+import EnquiryForm, { type EnquiryFormProps } from "@/components/EnquiryForm";
+import WheatDecor from "@/components/WheatDecor";
 
 const contacts = [
   { label: "Phone", value: "+91 7400945550", href: "tel:+917400945550" },
@@ -44,10 +45,19 @@ function ApprovalStamp() {
   );
 }
 
-export default function ContactSection() {
+export default function ContactSection({
+  heading = "Let's Grow Together. Partner with IIRS 2027.",
+  description = "For partnership & sponsorship enquiries, write to The Rice Exporters Association Chhattisgarh (TREACG).",
+  form,
+}: {
+  heading?: string;
+  description?: string;
+  form?: EnquiryFormProps;
+}) {
   return (
-    <section id="contact" className="scroll-mt-16 bg-white">
-      <div className="mx-auto max-w-6xl px-6 py-24">
+    <section id="contact" className="scroll-mt-16 bg-white relative overflow-hidden">
+      <WheatDecor items={[{ side:"left", top:"28%", size:100, rotate:20 }, { side:"right", top:"72%", size:120, rotate:-25 }]} />
+      <div className="relative mx-auto max-w-6xl px-6 py-24">
         <div className="relative rounded-2xl bg-orange-100/70 p-6 sm:p-10">
           <div className="absolute -right-3 -top-8 sm:-right-6 sm:-top-10">
             <ApprovalStamp />
@@ -56,11 +66,10 @@ export default function ContactSection() {
             {/* left: pitch */}
             <div className="flex flex-col">
               <h2 className="text-4xl font-bold leading-tight text-neutral-900 sm:text-5xl">
-                Let&apos;s Grow Together. Partner with IIRS 2027.
+                {heading}
               </h2>
               <p className="mt-5 max-w-sm text-sm leading-relaxed text-neutral-700">
-                For partnership &amp; sponsorship enquiries, write to The Rice Exporters Association Chhattisgarh
-                (TREACG).
+                {description}
               </p>
               <div className="mt-10 hidden lg:block">
                 <PaperPlane />
@@ -69,7 +78,7 @@ export default function ContactSection() {
 
             {/* right: form panel */}
             <div className="rounded-xl bg-white p-6 shadow-sm sm:p-8">
-              <EnquiryForm />
+              <EnquiryForm {...form} />
             </div>
           </div>
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { EMAIL_RE, PHONE_RE, type Errors } from "./form-parts";
 
-const partnershipTypes = [
+export const partnershipTypes = [
   "Co-Sponsor",
   "Diamond",
   "Gold",
@@ -53,7 +53,19 @@ function Line({
   );
 }
 
-export default function EnquiryForm() {
+export type EnquiryFormProps = {
+  /** name of the choice group, e.g. "Partnership type" or "Ticket plan" */
+  choiceLabel?: string;
+  choices?: string[];
+  /** pre-selected choice */
+  selected?: string;
+};
+
+export default function EnquiryForm({
+  choiceLabel = "Partnership type",
+  choices = partnershipTypes,
+  selected = "",
+}: EnquiryFormProps) {
   const [errors, setErrors] = useState<Errors>({});
   const [done, setDone] = useState(false);
 
@@ -82,7 +94,7 @@ export default function EnquiryForm() {
     else if (!EMAIL_RE.test(get("email"))) err.email = "Please enter a valid email address.";
     if (!get("phone")) err.phone = "Please enter your phone number.";
     else if (!PHONE_RE.test(get("phone"))) err.phone = "Include the country code, e.g. +91 7400945550.";
-    if (!get("type")) err.type = "Please choose a partnership type.";
+    if (!get("type")) err.type = `Please choose a ${choiceLabel.toLowerCase()}.`;
     setErrors(err);
     if (Object.keys(err).length) return;
     // TODO: wire to a backend / email service
@@ -108,11 +120,11 @@ export default function EnquiryForm() {
       </Line>
 
       <fieldset className="sm:col-span-2">
-        <legend className="text-sm italic text-neutral-700">Partnership type*</legend>
+        <legend className="text-sm italic text-neutral-700">{choiceLabel}*</legend>
         <div className="mt-3 flex flex-wrap gap-2">
-          {partnershipTypes.map((t) => (
+          {choices.map((t) => (
             <label key={t} className="cursor-pointer">
-              <input type="radio" name="type" value={t} className="peer sr-only" />
+              <input type="radio" name="type" value={t} defaultChecked={t === selected} className="peer sr-only" />
               <span className="block rounded-md border border-neutral-400 px-3 py-1.5 text-xs text-neutral-700 transition hover:border-brand-green peer-checked:border-brand-green peer-checked:bg-brand-green peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-brand-orange">
                 {t}
               </span>

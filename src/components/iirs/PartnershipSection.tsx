@@ -1,4 +1,5 @@
 import SectionHeading from "./SectionHeading";
+import WheatDecor from "@/components/WheatDecor";
 
 type Tier = { name: string; spots?: string; benefits: string[]; featured?: boolean };
 
@@ -133,8 +134,9 @@ function Tick() {
 
 export default function PartnershipSection() {
   return (
-    <section id="partnership" className="scroll-mt-16 bg-white">
-      <div className="mx-auto max-w-[1920px] px-6 pb-24 lg:px-20">
+    <section id="partnership" className="scroll-mt-16 bg-white relative overflow-hidden">
+      <WheatDecor items={[{ side:"left", top:"42%", size:130, rotate:-15 }, { side:"right", top:"66%", size:90, rotate:30 }]} />
+      <div className="relative mx-auto max-w-[1920px] px-6 pb-24 lg:px-20">
         <SectionHeading eyebrow="Become a partner" title="Partnership Opportunities" />
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {tiers.map((t, i) => (

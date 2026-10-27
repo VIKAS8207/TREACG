@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Header from "@/components/Header";
-import TicketEnquiryForm from "@/components/TicketEnquiryForm";
-import { PageShell } from "@/components/form-parts";
+import IirsFooter from "@/components/iirs/IirsFooter";
+import ContactSection from "@/components/iirs/ContactSection";
 import { plans } from "@/lib/plans";
 
 export const metadata: Metadata = {
@@ -10,25 +10,30 @@ export const metadata: Metadata = {
 };
 
 // searchParams is runtime data, so it is read inside <Suspense> to keep the shell prerenderable
-async function EnquiryForm({ searchParams }: Pick<PageProps<"/tickets/enquire">, "searchParams">) {
+async function TicketEnquiry({ searchParams }: Pick<PageProps<"/tickets/enquire">, "searchParams">) {
   const { plan } = await searchParams;
   const requested = Array.isArray(plan) ? plan[0] : plan;
   // only accept known plan names
   const selected = plans.find((p) => p.name === requested)?.name ?? "";
-  return <TicketEnquiryForm plan={selected} />;
+  return (
+    <ContactSection
+      heading="Enquire about your IIRS 2027 ticket."
+      description="Tell us which plan you are interested in and the TREACG team will get back to you."
+      form={{ choiceLabel: "Ticket plan", choices: plans.map((p) => p.name), selected }}
+    />
+  );
 }
 
 export default function TicketEnquiryPage({ searchParams }: PageProps<"/tickets/enquire">) {
   return (
     <>
       <Header />
-      <PageShell title="Ticket Enquiry" back={{ href: "/tickets", label: "Back to Ticket Plans" }}>
-        <div className="rounded-md bg-white p-6 shadow-sm sm:p-8">
-          <Suspense fallback={<div className="h-80 animate-pulse rounded bg-neutral-100" />}>
-            <EnquiryForm searchParams={searchParams} />
-          </Suspense>
-        </div>
-      </PageShell>
+      <main className="flex-1 bg-white">
+        <Suspense fallback={<div className="mx-auto my-24 h-[560px] max-w-6xl animate-pulse rounded-2xl bg-orange-100/70" />}>
+          <TicketEnquiry searchParams={searchParams} />
+        </Suspense>
+      </main>
+      <IirsFooter />
     </>
   );
 }

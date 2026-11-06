@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
-import MarqueeTapes from "@/components/MarqueeTapes";
-import SectionNav from "@/components/iirs/SectionNav";
 import HeroSection from "@/components/iirs/HeroSection";
 import HighlightsSection from "@/components/iirs/HighlightsSection";
 import GlimpseSection from "@/components/iirs/GlimpseSection";
@@ -20,11 +18,9 @@ export default function Iirs2027Page() {
   return (
     <>
       <Header />
-      <SectionNav />
       <main className="flex-1 scroll-smooth">
         <HeroSection />
         <HighlightsSection />
-        <MarqueeTapes />
         <GlimpseSection />
         <WhyPartnerSection />
         <PartnershipSection />

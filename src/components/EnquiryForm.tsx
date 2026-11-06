@@ -19,69 +19,74 @@ export const partnershipTypes = [
   "Conference Partner",
 ];
 
-// underline-style input shared by every text field
-const line =
-  "w-full border-0 border-b bg-transparent px-0 py-2 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-400 focus:border-brand-orange";
-const lineBorder = (err?: string) => (err ? "border-red-500" : "border-neutral-400");
+const control =
+  "w-full rounded-lg border bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-400 focus:ring-2";
+const controlState = (err?: string) =>
+  err
+    ? "border-red-500 focus:border-red-500 focus:ring-red-500/25"
+    : "border-neutral-300 hover:border-neutral-400 focus:border-brand-orange focus:ring-brand-orange/25";
 
-function Line({
+function Field({
   label,
   required,
+  optional,
   error,
+  hint,
   className = "",
   children,
 }: {
   label: string;
   required?: boolean;
+  optional?: boolean;
   error?: string;
+  hint?: string;
   className?: string;
   children: React.ReactNode;
 }) {
   return (
     <label className={`block ${className}`}>
-      <span className="text-sm italic text-neutral-700">
+      <span className="mb-1.5 flex items-baseline gap-1 text-sm font-semibold text-neutral-800">
         {label}
-        {required && "*"}
+        {required && (
+          <span className="text-red-600" aria-hidden>
+            *
+          </span>
+        )}
+        {optional && <span className="text-xs font-normal text-neutral-500">(optional)</span>}
       </span>
       {children}
-      {error && (
-        <span role="alert" className="mt-1 block text-xs font-medium text-red-600">
+      {error ? (
+        <span role="alert" className="mt-1.5 block text-xs font-medium text-red-600">
           {error}
         </span>
+      ) : (
+        hint && <span className="mt-1.5 block text-xs text-neutral-500">{hint}</span>
       )}
     </label>
   );
 }
 
 export type EnquiryFormProps = {
-  /** name of the choice group, e.g. "Partnership type" or "Ticket plan" */
   choiceLabel?: string;
   choices?: string[];
-  /** pre-selected choice */
   selected?: string;
+  submitLabel?: string;
+  successTitle?: string;
+  title?: string;
+  intro?: string;
 };
 
 export default function EnquiryForm({
   choiceLabel = "Partnership type",
   choices = partnershipTypes,
   selected = "",
+  submitLabel = "Submit Details",
+  successTitle = "Thank you for your enquiry",
+  title = "Register Interest",
+  intro = "Interested in partnering? Use the form below to get in touch.",
 }: EnquiryFormProps) {
   const [errors, setErrors] = useState<Errors>({});
   const [done, setDone] = useState(false);
-
-  if (done) {
-    return (
-      <div className="py-16 text-center">
-        <div className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full bg-brand-mint text-brand-green">
-          <svg viewBox="0 0 20 20" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-            <path d="m4 10.5 4 4 8-9" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-        <p className="text-2xl font-bold text-brand-green">Thank you for your enquiry</p>
-        <p className="mt-2 text-neutral-600">The TREACG team will get back to you shortly.</p>
-      </div>
-    );
-  }
 
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -101,58 +106,123 @@ export default function EnquiryForm({
     setDone(true);
   }
 
-  return (
-    <form noValidate onSubmit={submit} className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
-      <Line label="Full name" required error={errors.name} className="sm:col-span-2">
-        <input name="name" autoComplete="name" className={`${line} ${lineBorder(errors.name)}`} />
-      </Line>
-      <Line label="Email" required error={errors.email}>
-        <input name="email" type="email" autoComplete="email" className={`${line} ${lineBorder(errors.email)}`} />
-      </Line>
-      <Line label="Phone number" required error={errors.phone}>
-        <input name="phone" type="tel" autoComplete="tel" placeholder="+91 …" className={`${line} ${lineBorder(errors.phone)}`} />
-      </Line>
-      <Line label="Company name" required error={errors.company}>
-        <input name="company" autoComplete="organization" className={`${line} ${lineBorder(errors.company)}`} />
-      </Line>
-      <Line label="Address">
-        <input name="address" autoComplete="street-address" className={`${line} ${lineBorder()}`} />
-      </Line>
-
-      <fieldset className="sm:col-span-2">
-        <legend className="text-sm italic text-neutral-700">{choiceLabel}*</legend>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {choices.map((t) => (
-            <label key={t} className="cursor-pointer">
-              <input type="radio" name="type" value={t} defaultChecked={t === selected} className="peer sr-only" />
-              <span className="block rounded-md border border-neutral-400 px-3 py-1.5 text-xs text-neutral-700 transition hover:border-brand-green peer-checked:border-brand-green peer-checked:bg-brand-green peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-brand-orange">
-                {t}
-              </span>
-            </label>
-          ))}
-        </div>
-        {errors.type && (
-          <span role="alert" className="mt-2 block text-xs font-medium text-red-600">
-            {errors.type}
-          </span>
-        )}
-      </fieldset>
-
-      <Line label="Message" className="sm:col-span-2">
-        <textarea name="message" rows={2} className={`${line} ${lineBorder()} resize-y`} />
-      </Line>
-
-      <div className="sm:col-span-2">
-        <button
-          type="submit"
-          className="inline-flex items-center gap-3 rounded-md bg-brand-orange px-5 py-3 text-sm font-semibold text-white transition hover:brightness-110"
-        >
-          Send Enquiry
-          <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-            <path d="M6 14 14 6M7 6h7v7" strokeLinecap="round" strokeLinejoin="round" />
+  if (done) {
+    return (
+      <div className="flex h-full flex-col justify-center py-10 text-center" role="status">
+        <div className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full bg-brand-mint text-brand-green">
+          <svg viewBox="0 0 20 20" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
+            <path d="m4 10.5 4 4 8-9" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </button>
+        </div>
+        <p className="text-2xl font-bold text-brand-green sm:text-3xl">{successTitle}</p>
+        <p className="mt-2 text-neutral-600">The TREACG team will get back to you shortly.</p>
       </div>
-    </form>
+    );
+  }
+
+  return (
+    <div className="w-full">
+      <h3 className="text-2xl font-bold text-brand-green sm:text-3xl">{title}</h3>
+      <div className="mt-3 h-1 w-12 rounded bg-brand-orange" />
+      <p className="mt-4 text-sm text-neutral-600">{intro}</p>
+
+      <form noValidate onSubmit={submit} className="mt-8 grid gap-x-5 gap-y-5 sm:grid-cols-2">
+        <Field label="Full name" required error={errors.name}>
+          <input
+            name="name"
+            autoComplete="name"
+            placeholder="Your full name"
+            aria-invalid={!!errors.name}
+            className={`${control} ${controlState(errors.name)}`}
+          />
+        </Field>
+
+        <Field label="Company name" required error={errors.company}>
+          <input
+            name="company"
+            autoComplete="organization"
+            placeholder="Company or organisation"
+            aria-invalid={!!errors.company}
+            className={`${control} ${controlState(errors.company)}`}
+          />
+        </Field>
+
+        <Field label="Email address" required error={errors.email}>
+          <input
+            name="email"
+            type="email"
+            autoComplete="email"
+            placeholder="name@company.com"
+            aria-invalid={!!errors.email}
+            className={`${control} ${controlState(errors.email)}`}
+          />
+        </Field>
+
+        <Field label="Phone number" required error={errors.phone} hint="Include the country code.">
+          <input
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            placeholder="+91 00000 00000"
+            aria-invalid={!!errors.phone}
+            className={`${control} ${controlState(errors.phone)}`}
+          />
+        </Field>
+
+        <Field label={choiceLabel} required error={errors.type} className="sm:col-span-2">
+          <span className="relative block">
+            <select
+              name="type"
+              defaultValue={selected}
+              aria-invalid={!!errors.type}
+              className={`${control} ${controlState(errors.type)} cursor-pointer appearance-none pr-11`}
+            >
+              <option value="" disabled>
+                Select a {choiceLabel.toLowerCase()}
+              </option>
+              {choices.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+            <svg
+              viewBox="0 0 20 20"
+              className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden
+            >
+              <path d="m5 7.5 5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </Field>
+
+        <Field label="Message" optional className="sm:col-span-2">
+          <textarea
+            name="message"
+            rows={4}
+            placeholder="Tell us more about how you would like to partner with IIRS 2027"
+            className={`${control} ${controlState()} resize-y`}
+          />
+        </Field>
+
+        <div className="flex flex-col-reverse items-start justify-between gap-4 border-t border-neutral-200 pt-6 sm:col-span-2 sm:flex-row sm:items-center">
+          <p className="text-xs text-neutral-500">Fields marked * are required.</p>
+          <button
+            type="submit"
+            className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-brand-orange py-1.5 pl-7 pr-1.5 font-semibold text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange sm:w-auto"
+          >
+            {submitLabel}
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-brand-orange">
+              <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                <path d="M6 14 14 6M7 6h7v7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

@@ -6,6 +6,7 @@ import StatsSection from "@/components/register/StatsSection";
 import ConnectSection from "@/components/register/ConnectSection";
 import TicketsSection from "@/components/register/TicketsSection";
 import CtaSection from "@/components/register/CtaSection";
+import MobileApp from "@/components/register/MobileApp";
 
 export const metadata: Metadata = {
   title: "Join IIRS 2027",
@@ -18,8 +19,7 @@ export default function JoinPage() {
     <>
       <Header />
       <main className="flex-1 scroll-smooth">
-        <HeroSection />
-        <StatsSection />
+        <MobileApp />
         <ConnectSection />
         <TicketsSection />
         <CtaSection />

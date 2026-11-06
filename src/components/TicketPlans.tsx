@@ -62,7 +62,7 @@ export default function TicketPlans() {
               href={`/tickets/enquire?plan=${encodeURIComponent(p.name)}`}
               className="mt-6 inline-flex items-center gap-3 rounded-full bg-brand-orange py-1.5 pl-6 pr-1.5 text-sm font-semibold text-white transition hover:brightness-110"
             >
-              Enquire Now
+              Register Now
               <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-brand-orange">
                 <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                   <path d="M6 14 14 6M7 6h7v7" strokeLinecap="round" strokeLinejoin="round" />

@@ -1,10 +1,10 @@
 import Link from "next/link";
-import WheatDecor from "@/components/WheatDecor";
+import GradientOrbs from "@/components/GradientOrbs";
 
 export default function CtaSection() {
   return (
     <section className="bg-white relative overflow-hidden">
-      <WheatDecor items={[{ side:"left", top:"42%", size:90, rotate:-25 }, { side:"right", top:"55%", size:120, rotate:20 }]} />
+      <GradientOrbs items={[{ side:"left", top:47, size:100 }, { side:"right", top:55, size:90 }]} />
       <div className="relative mx-auto max-w-5xl px-6 pb-24">
         <div className="rounded-2xl bg-orange-100/70 px-6 py-14 text-center sm:px-10">
           <h2 className="text-3xl font-bold text-brand-green sm:text-4xl">Ready to join IIRS 2027?</h2>

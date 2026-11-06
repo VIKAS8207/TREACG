@@ -1,5 +1,7 @@
 import EnquiryForm, { type EnquiryFormProps } from "@/components/EnquiryForm";
-import WheatDecor from "@/components/WheatDecor";
+import Image from "next/image";
+import heroImage from "../../../public/images/TREACG wall.png";
+import GradientOrbs from "@/components/GradientOrbs";
 
 const contacts = [
   { label: "Phone", value: "+91 7400945550", href: "tel:+917400945550" },
@@ -7,47 +9,17 @@ const contacts = [
   { label: "Website", value: "www.treacg.in", href: "https://www.treacg.in" },
 ];
 
-function PaperPlane() {
+function Arrow() {
   return (
-    <svg viewBox="0 0 260 170" className="w-full max-w-xs text-neutral-700" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" aria-hidden>
-      <path d="M10 62 250 8 160 160 126 98z" />
-      <path d="M250 8 126 98M126 98l-8 52 42 10" />
-      <path d="M8 150c40 12 80-6 112-52" className="text-brand-orange" stroke="currentColor" strokeDasharray="4 6" />
-    </svg>
-  );
-}
-
-function ApprovalStamp() {
-  // red rubber-stamp seal: double ring, widely spaced circular text, big tick
-  return (
-    <svg
-      viewBox="0 0 200 200"
-      className="h-24 w-24 -rotate-12 text-red-600 opacity-90 sm:h-32 sm:w-32"
-      fill="none"
-      stroke="currentColor"
-      role="img"
-      aria-label="Stamp of approval"
-    >
-      <defs>
-        <path id="stamp-ring" d="M100 100m-68 0a68 68 0 1 1 136 0a68 68 0 1 1-136 0" />
-      </defs>
-      <circle cx="100" cy="100" r="94" strokeWidth="5" />
-      <circle cx="100" cy="100" r="86" strokeWidth="1.5" />
-      <circle cx="100" cy="100" r="50" strokeWidth="1.5" />
-      <text fill="currentColor" stroke="none" fontSize="14" fontWeight="700">
-        {/* textLength spreads the letters evenly around the full ring */}
-        <textPath href="#stamp-ring" textLength="420" lengthAdjust="spacing">
-          IIRS 2027 · TREACG ·
-        </textPath>
-      </text>
-      <path d="M72 102l20 20 38-44" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+      <path d="M6 14 14 6M7 6h7v7" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
 export default function ContactSection({
-  heading = "Let's Grow Together. Partner with IIRS 2027.",
-  description = "For partnership & sponsorship enquiries, write to The Rice Exporters Association Chhattisgarh (TREACG).",
+  heading = "Let's Grow Together",
+  description = "Connect with industry leaders, millers, and global buyers. Sign up to secure your partnership.",
   form,
 }: {
   heading?: string;
@@ -55,44 +27,49 @@ export default function ContactSection({
   form?: EnquiryFormProps;
 }) {
   return (
-    <section id="contact" className="scroll-mt-16 bg-white relative overflow-hidden">
-      <WheatDecor items={[{ side:"left", top:"28%", size:100, rotate:20 }, { side:"right", top:"72%", size:120, rotate:-25 }]} />
-      <div className="relative mx-auto max-w-6xl px-6 py-24">
-        <div className="relative rounded-2xl bg-orange-100/70 p-6 sm:p-10">
-          <div className="absolute -right-3 -top-8 sm:-right-6 sm:-top-10">
-            <ApprovalStamp />
-          </div>
-          <div className="grid gap-10 lg:grid-cols-[5fr_7fr]">
-            {/* left: pitch */}
-            <div className="flex flex-col">
-              <h2 className="text-4xl font-bold leading-tight text-neutral-900 sm:text-5xl">
-                {heading}
-              </h2>
-              <p className="mt-5 max-w-sm text-sm leading-relaxed text-neutral-700">
-                {description}
-              </p>
-              <div className="mt-10 hidden lg:block">
-                <PaperPlane />
-              </div>
+    <section id="contact" className="relative scroll-mt-16 overflow-hidden bg-white px-4 py-20 md:px-8">
+      <GradientOrbs items={[{ side:"left", top:45, size:90 }, { side:"right", top:56, size:80 }]} />
+
+      <div className="relative z-10 mx-auto max-w-6xl">
+        <div className="grid overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xl lg:grid-cols-[5fr_7fr]">
+          {/* left: message on solid green, photo rises from the bottom and fades out towards the top */}
+          <div className="relative isolate flex min-h-[520px] flex-col bg-brand-green p-8 text-white md:p-12 lg:min-h-[640px]">
+            <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 h-[58%]">
+              <Image src={heroImage} alt="" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover object-bottom" />
+              <div className="absolute inset-0 bg-linear-to-b from-brand-green from-0% via-brand-green/65 via-40% to-transparent" />
             </div>
 
-            {/* right: form panel */}
-            <div className="rounded-xl bg-white p-6 shadow-sm sm:p-8">
-              <EnquiryForm {...form} />
-            </div>
+            <h2 className="text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl">{heading}</h2>
+            <p className="mt-3 text-xl font-semibold text-amber-400 md:text-2xl">Partner with IIRS 2027.</p>
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/80">{description}</p>
+
+            <a
+              href="#why-partner"
+              className="mt-8 inline-flex items-center gap-3 self-start rounded-full bg-brand-orange py-1.5 pl-6 pr-1.5 text-sm font-semibold text-white transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              Learn More
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-brand-orange">
+                <Arrow />
+              </span>
+            </a>
           </div>
 
-          {/* contact row */}
-          <div className="mt-12 grid gap-6 text-center sm:grid-cols-3">
-            {contacts.map((c) => (
-              <div key={c.label}>
-                <p className="text-xs text-neutral-500">{c.label}</p>
-                <a href={c.href} className="mt-1 inline-block text-lg font-medium text-neutral-900 hover:text-brand-orange">
-                  {c.value}
-                </a>
-              </div>
-            ))}
+          {/* right: the form */}
+          <div className="flex flex-col justify-center bg-white p-8 md:p-12">
+            <EnquiryForm {...form} />
           </div>
+        </div>
+
+        {/* contact details */}
+        <div className="mt-14 grid gap-6 text-center sm:grid-cols-3">
+          {contacts.map((c) => (
+            <div key={c.label}>
+              <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-brand-orange">{c.label}</p>
+              <a href={c.href} className="inline-block text-lg font-medium text-neutral-900 transition-colors hover:text-brand-orange">
+                {c.value}
+              </a>
+            </div>
+          ))}
         </div>
       </div>
     </section>

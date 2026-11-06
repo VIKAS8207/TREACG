@@ -1,5 +1,6 @@
 import Image from "next/image";
-import heroImage from "../../../public/images/TREACG wall.png";
+import heroImage from "../../../public/images/new event.png";
+import logo from "../../../public/images/iirs-footer.png";
 import EventPanel from "./EventPanel";
 
 export default function HeroSection() {
@@ -16,10 +17,15 @@ export default function HeroSection() {
       <div className="absolute inset-0 -z-10 bg-black/55" />
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 px-6 pb-36 pt-24">
         <p className="text-base font-medium sm:text-lg">3rd Edition</p>
-        <h1 className="text-5xl font-bold leading-tight sm:text-7xl">
-          India International
-          <span className="block text-amber-400">Rice Summit 2027</span>
-          <span className="block text-3xl sm:text-4xl">(IIRS 2027)</span>
+        {/* logo replaces the text title; the h1 keeps the event name for screen readers and search */}
+        <h1>
+          <Image
+            src={logo}
+            alt="India International Rice Summit 2027 (IIRS 2027)"
+            priority
+            sizes="(min-width: 640px) 420px, 300px"
+            className="mx-auto h-auto w-[300px] drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)] sm:w-[420px]"
+          />
         </h1>
         <p className="text-xl sm:text-2xl">A Global Event to Showcase, Connect and Collaborate</p>
         <p className="text-lg font-semibold text-amber-400">Think Rice, Think India</p>

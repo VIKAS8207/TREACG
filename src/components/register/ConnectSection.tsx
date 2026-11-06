@@ -1,5 +1,5 @@
 import Link from "next/link";
-import WheatDecor from "@/components/WheatDecor";
+import GradientOrbs from "@/components/GradientOrbs";
 
 const benefits = [
   ["Connect", "Meet buyers, sellers, millers and exporters in curated B2B, B2G and reverse buyer–seller meetings."],
@@ -21,7 +21,7 @@ function Arrow() {
 export default function ConnectSection() {
   return (
     <section className="bg-white relative overflow-hidden">
-      <WheatDecor items={[{ side:"left", top:"68%", size:110, rotate:-20 }, { side:"right", top:"30%", size:90, rotate:20 }]} />
+      <GradientOrbs items={[{ side:"left", top:54, size:90 }, { side:"right", top:46, size:84 }]} />
       <div className="relative mx-auto grid max-w-[1920px] gap-12 px-6 py-24 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:px-20">
         {/* intro */}
         <div className="lg:sticky lg:top-24 lg:self-start">

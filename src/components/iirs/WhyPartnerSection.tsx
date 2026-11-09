@@ -1,6 +1,5 @@
-import Image from "next/image";
 import GradientOrbs from "@/components/GradientOrbs";
-import bgImage from "../../../public/images/TREACG wall.png";
+import BentoGrid from "@/components/BentoGrid";
 
 // Bento layout on a 4-column grid (large screens):
 //   Explore  (2x2) | Connect | Learn
@@ -51,13 +50,6 @@ const items = [
   },
 ] as const;
 
-const tones = {
-  feature: { card: "bg-brand-orange text-white", text: "text-white/90", pill: "bg-white/25 text-white", arrow: "bg-white text-brand-orange" },
-  orange: { card: "bg-orange-100 text-neutral-900", text: "text-neutral-700", pill: "bg-white text-brand-orange", arrow: "bg-neutral-900 text-white" },
-  neutral: { card: "bg-neutral-100 text-neutral-900", text: "text-neutral-700", pill: "bg-white text-neutral-700", arrow: "bg-neutral-900 text-white" },
-  mint: { card: "bg-brand-mint text-neutral-900", text: "text-neutral-700", pill: "bg-white text-brand-green", arrow: "bg-neutral-900 text-white" },
-};
-
 function Arrow() {
   return (
     <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
@@ -69,7 +61,7 @@ function Arrow() {
 export default function WhyPartnerSection() {
   return (
     <section id="why-partner" className="scroll-mt-16 bg-white relative overflow-hidden">
-      <GradientOrbs items={[{ side:"right", top:46, size:90 }, { side:"left", top:55, size:82 }]} />
+      <GradientOrbs items={[{ x:92, top:45, size:84, tone:"green" }, { x:30, top:56, size:60, tone:"orange" }]} />
       <div className="relative mx-auto max-w-6xl px-6 py-24">
         {/* centred heading */}
         <div className="mx-auto mb-14 max-w-3xl text-center">
@@ -85,39 +77,7 @@ export default function WhyPartnerSection() {
           </p>
         </div>
 
-        {/* bento grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:auto-rows-[minmax(220px,auto)] lg:grid-cols-4">
-          {items.map((it, i) => {
-            const t = tones[it.tone];
-            const big = it.tone === "feature";
-            return (
-              <article
-                key={it.title}
-                className={`group relative isolate flex flex-col justify-between overflow-hidden rounded-2xl p-7 transition hover:-translate-y-1 hover:shadow-lg ${t.card} ${it.span}`}
-              >
-                {big && (
-                  // photo across the card; the orange fades in from top to bottom over it
-                  <div aria-hidden className="absolute inset-0 -z-10">
-                    <Image src={bgImage} alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
-                    <div className="absolute inset-0 bg-linear-to-b from-brand-orange/0 via-brand-orange/65 to-brand-orange" />
-                  </div>
-                )}
-                <div className="flex items-center justify-between">
-                  <span className={`rounded-full px-3 py-1 text-xs font-bold ${t.pill}`}>0{i + 1}</span>
-                  <span
-                    className={`grid h-9 w-9 place-items-center rounded-full transition group-hover:rotate-45 ${t.arrow}`}
-                  >
-                    <Arrow />
-                  </span>
-                </div>
-                <div className="mt-10">
-                  <h3 className={`font-bold leading-tight ${big ? "text-5xl sm:text-6xl" : "text-3xl"}`}>{it.title}</h3>
-                  <p className={`mt-3 leading-relaxed ${t.text} ${big ? "max-w-sm text-lg" : ""}`}>{it.text}</p>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+        <BentoGrid items={items} />
 
         <div className="mt-12 text-center">
           <a

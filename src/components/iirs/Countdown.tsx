@@ -31,11 +31,16 @@ export default function Countdown() {
   ];
 
   return (
-    <div className="grid grid-cols-4 gap-2 sm:gap-3" role="timer" aria-label="Time left until IIRS 2027">
+    // open layout, no tiles: bold numbers with small spaced labels underneath
+    <div
+      className="mx-auto flex w-full max-w-4xl justify-between gap-3 px-2 sm:px-8"
+      role="timer"
+      aria-label="Time left until IIRS 2027"
+    >
       {units.map((u) => (
-        <div key={u.label} className="rounded-lg bg-white/10 px-2 py-3 sm:px-4 sm:py-4">
-          <p className="text-3xl font-bold tabular-nums sm:text-5xl">{u.value}</p>
-          <p className="mt-1 text-[10px] font-semibold uppercase tracking-widest text-white/70 sm:text-xs">{u.label}</p>
+        <div key={u.label} className="flex-1 text-center">
+          <p className="text-5xl font-extrabold leading-none tabular-nums tracking-tight sm:text-7xl lg:text-8xl">{u.value}</p>
+          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-800 sm:text-base">{u.label}</p>
         </div>
       ))}
     </div>

@@ -28,7 +28,7 @@ export default function ContactSection({
 }) {
   return (
     <section id="contact" className="relative scroll-mt-16 overflow-hidden bg-white px-4 py-20 md:px-8">
-      <GradientOrbs items={[{ side:"left", top:45, size:90 }, { side:"right", top:56, size:80 }]} />
+      <GradientOrbs items={[{ x:0, top:50, size:90, tone:"green" }, { x:62, top:44, size:64, tone:"orange" }]} />
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <div className="grid overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-xl lg:grid-cols-[5fr_7fr]">

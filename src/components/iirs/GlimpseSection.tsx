@@ -41,7 +41,7 @@ const activities: { title: string; text: string; card: string; muted: string; pi
 export default function GlimpseSection() {
   return (
     <section id="glimpse" className="scroll-mt-16 bg-white relative overflow-hidden">
-      <GradientOrbs items={[{ side:"left", top:44, size:88 }, { side:"right", top:55, size:90 }]} />
+      <GradientOrbs items={[{ x:8, top:40, size:80, tone:"orange" }, { x:78, top:58, size:70, tone:"green" }]} />
       <div className="relative mx-auto max-w-[1920px] px-6 py-20 lg:px-20">
         <SectionHeading eyebrow="Last edition" title="IIRS-2026 Glimpse & Activities" />
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">

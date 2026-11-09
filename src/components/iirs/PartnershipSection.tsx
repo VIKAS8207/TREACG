@@ -7,7 +7,7 @@ import CategoryPartners from "./partnership/CategoryPartners";
 export default function PartnershipSection() {
   return (
     <section id="partnership" className="scroll-mt-16 bg-white relative overflow-hidden">
-      <GradientOrbs items={[{ side:"left", top:47, size:84 }, { side:"right", top:54, size:92 }]} />
+      <GradientOrbs items={[{ x:50, top:46, size:70, tone:"orange" }, { x:100, top:62, size:76, tone:"green" }]} />
       <div className="relative mx-auto max-w-[1920px] space-y-16 px-6 pb-24 lg:px-20">
         <div className="space-y-5">
           <SectionHeading eyebrow="Become a partner" title="Partnership Opportunities" />
